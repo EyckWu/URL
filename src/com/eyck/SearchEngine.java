@@ -26,10 +26,11 @@ public abstract class SearchEngine {
 		JOptionPane.showMessageDialog(null, show);
 	}
 	
-	public String search(String url){
+	public String search1(String url){
 		BufferedReader br = null;
 		StringBuilder sb ;
 		String result = null;
+		
 		try{
 			sb = new StringBuilder();
 			System.out.println(url);
@@ -53,5 +54,40 @@ public abstract class SearchEngine {
 			return result;
 		}
 	}
+	
+	public String search(String url){
+		BufferedReader br = null;
+		StringBuilder sb ;
+		String result = null;
+		FileWriter fw = null;
+		File file = null;
+		try{
+			sb = new StringBuilder();
+			System.out.println(url);
+			URL mUrl = new URL(url);
+			System.setProperty("http.agent", "Chrome");
+			URLConnection conn = mUrl.openConnection();
+			String hasRead = "";
+			file = new File("G:\\javapractice\\Baidu\\google.html");
+			fw = new FileWriter(file);
+			//br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"zh_CN"));
+			br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
+			while((hasRead=br.readLine())!=null){
+				sb.append(hasRead);
+				fw.write(hasRead);
+			}
+			result = sb.toString();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try {
+				br.close();
+				fw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
+	} 
 	
 }
