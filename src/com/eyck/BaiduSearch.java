@@ -1,5 +1,6 @@
 package com.eyck;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import javax.swing.JOptionPane;
@@ -34,7 +35,7 @@ public class BaiduSearch extends SearchEngine{
 			System.out.println(finalResult);
 			JOptionPane.showMessageDialog(null, finalResult);
 		}else{
-			showMessage(key);
+			showErrorMessage(key);
 		}
 		
 	}
@@ -42,6 +43,12 @@ public class BaiduSearch extends SearchEngine{
 	@Override
 	public String UrlEncoder(String key) {
 		String url = "http://www.baidu.com/s?wd=";
-		return url += URLEncoder.encode(key);
+		try {
+			url += java.net.URLEncoder.encode(key, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return url;
 	}
 }

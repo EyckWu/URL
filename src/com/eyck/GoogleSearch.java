@@ -1,5 +1,6 @@
 package com.eyck;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import javax.swing.JOptionPane;
@@ -15,6 +16,7 @@ public class GoogleSearch extends SearchEngine{
 		// TODO Auto-generated method stub
 		String url = UrlEncoder(key);
 		String result = search(url);
+		//String result = search(key);
 		int start = -1;
 		int end = -1;
 		Document doc = Jsoup.parse(result);
@@ -35,7 +37,7 @@ public class GoogleSearch extends SearchEngine{
 			System.out.println(finalResult);
 			JOptionPane.showMessageDialog(null, "Google找到了约"+finalResult+"条结果");
 		}else{
-			showMessage(key);
+			showErrorMessage(key);
 		}
 		
 	}
@@ -43,7 +45,13 @@ public class GoogleSearch extends SearchEngine{
 	@Override
 	public String UrlEncoder(String key) {
 		String url = "https://www.google.com.hk/search?q="; 
-		return url += URLEncoder.encode(key);
+		try {
+			url += java.net.URLEncoder.encode(key, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return url ;
 	}
 
 }

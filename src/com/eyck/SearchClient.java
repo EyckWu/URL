@@ -43,7 +43,7 @@ public class SearchClient extends Applet implements ActionListener{
 		add(keyword);
 		add(engine);
 		add(go);
-		addKeyListener(new MyKeyListener());
+		//addKeyListener(new MyKeyListener());
 		go.addActionListener(this);
 	}
 
@@ -70,7 +70,7 @@ public class SearchClient extends Applet implements ActionListener{
 		String engineName = "";
 		switch(engine.getSelectedIndex()){
 		case 0:
-			engineName = "http://www.baidu.com/";
+			engineName = "http://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=";
 			mEngine = new BaiduSearch();
 			break;
 		case 1:
